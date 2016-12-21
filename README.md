@@ -1,3 +1,7 @@
+## Example
+
+![](http://g.recordit.co/svlsBqYHni.gif)
+
 ## What is weekly-report
 
 Recursively inspect dirs inside your working dir and auto generate weekly commit report from git log for you. 
@@ -23,10 +27,6 @@ $ cd dir/contains/projects/using/git
 # Generate weekly report
 $ weekly-report # or wr for short
 ```
-
-## Example
-
-![](http://g.recordit.co/svlsBqYHni.gif)
 
 ## Note
 
