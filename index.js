@@ -1,38 +1,54 @@
 #!/usr/bin/env node
+
+// 1. get all the git repos inside dir
+// 2. run `oneReport` for each dir
+const fs = require('fs');
 const shell = require('shelljs');
-const dateformat = require('dateformat');
-const readline = require('readline');
-const debug = require('debug')('weekly');
+const debug = require('debug')('index');
+const path = require('path');
+const getOneReport = require('./getOneReport');
 
-// generate shell command and run
-const name = shell.exec('git config user.name', {silent:true}).stdout;
-const sevenDaysAgo = new Date((new Date()).getTime() - (1000 * 60 * 60 * 24 * 7));
-const dateStr = dateformat(sevenDaysAgo, 'yyyy-mm-dd');
-const gitLogs = shell.exec(`git log --after ${dateStr} --author ${name}`, {silent:true}).stdout;
 
-// reform gitLogs
-const logArr = gitLogs.split('\n');
+const gitRepoArr = [];
 
-for(let i = logArr.length-1; i >= 0; i--) {
-  if(logArr[i].indexOf('commit') === 0 || logArr[i].indexOf('Author') === 0 || logArr[i] === '') {
-    logArr.splice(i, 1);
+let depth = 0;
+const maxDeep = 2;
+
+reportGenerator(process.cwd());
+
+function reportGenerator(dir) {
+  debug('depth:', depth)
+  if(depth >= maxDeep) return;
+
+  if(isGitRepo(dir)) {
+    getOneReport(dir);
+  } else {
+    const folderArr = fs.readdirSync(dir);
+    debug('folderArr:', folderArr)
+    folderArr.forEach(item => {
+      if(item.indexOf('.') === 0) return;
+      const currentPath = path.join(dir, item);
+      const isFile = fs.statSync(currentPath).isFile();
+      if(!isFile){
+        if(isGitRepo(currentPath)) {
+          getOneReport(currentPath);
+        } else {
+          reportGenerator(currentPath);
+        }
+      }
+    })
   }
+  depth++;
 }
 
-let tmpDate = '';
 
-for(let i = 0; i < logArr.length; i++) {
-  if(logArr[i].indexOf('Date') === 0) {
-    let today = dateformat(new Date(logArr[i].slice(4)), 'yyyy-mm-dd');
-    debug(today, tmpDate);
-    if(today === tmpDate) {
-      logArr.splice(i, 1);
-    } else {
-      tmpDate = today;
-      logArr[i] = `${today}`;
-    }
+
+function isGitRepo(dir) {
+  const gitResErr = shell.exec(`git -C ${dir} rev-parse`, {silent:true}).stderr;
+  // no err means dir is a git repo
+  if(gitResErr === '') {
+    return true;
+  } else {
+    return false;
   }
 }
-
-// TODO: support upper folder
-console.log('~~~Weekly Report~~~ \n\n' + logArr.join('\n'));
