@@ -1,6 +1,6 @@
 {
   "name": "weekly-report",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Auto generate weekly report from git log for you",
   "main": "index.js",
   "bin": {
