@@ -26,9 +26,9 @@ $ weekly-report # or wr for short
 
 ## Example
 
-![](http://g.recordit.co/jCBkEycTan.gif)
+![](http://g.recordit.co/svlsBqYHni.gif)
 
 ## Note
 
 - The script will stop inspect dirs inside a dir if the dir is a git project.
-- deep
+- script will go 3 layer down
