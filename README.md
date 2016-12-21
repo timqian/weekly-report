@@ -4,7 +4,7 @@
 
 ## What is weekly-report
 
-Recursively inspect dirs inside your working dir and auto generate weekly commit report from git log for you. 
+Recursively inspect dirs inside your working dir and generate beautified commit report of last 7 days.
 
 ## When will you need it
 
