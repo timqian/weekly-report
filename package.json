@@ -1,0 +1,29 @@
+{
+  "name": "weekly-report",
+  "version": "1.0.0",
+  "description": "Auto generate weekly report from git log for you",
+  "main": "index.js",
+  "bin": {
+    "weekly-report": "index.js",
+    "wr": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timqian/weekly-report.git"
+  },
+  "keywords": [
+    "git",
+    "weekly",
+    "report"
+  ],
+  "author": "timqian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/timqian/weekly-report/issues"
+  },
+  "homepage": "https://github.com/timqian/weekly-report#readme",
+  "dependencies": {
+    "dateformat": "^2.0.0",
+    "shelljs": "^0.7.5"
+  }
+}
