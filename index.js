@@ -14,7 +14,7 @@ const gitLogs = shell.exec(`git log --after ${dateStr} --author ${name}`, {silen
 const logArr = gitLogs.split('\n');
 
 for(let i = logArr.length-1; i >= 0; i--) {
-  if(logArr[i].indexOf('commit') === 0 || logArr[i].indexOf('Author') === 0) {
+  if(logArr[i].indexOf('commit') === 0 || logArr[i].indexOf('Author') === 0 || logArr[i] === '') {
     logArr.splice(i, 1);
   }
 }
@@ -29,10 +29,10 @@ for(let i = 0; i < logArr.length; i++) {
       logArr.splice(i, 1);
     } else {
       tmpDate = today;
-      logArr[i] = `commits at ${today}`;
+      logArr[i] = `${today}`;
     }
   }
 }
 
 // TODO: support upper folder
-console.log(logArr.join('\n'));
+console.log('~~~Weekly Report~~~ \n\n' + logArr.join('\n'));
