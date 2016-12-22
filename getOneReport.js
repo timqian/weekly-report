@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+'use strict'
+
 const shell = require('shelljs');
 const dateformat = require('dateformat');
 const readline = require('readline');

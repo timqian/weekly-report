@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict'
 
 // 1. get all the git repos inside dir
 // 2. run `oneReport` for each dir
