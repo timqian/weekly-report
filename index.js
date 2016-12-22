@@ -11,36 +11,48 @@ const getOneReport = require('./getOneReport');
 
 const gitRepoArr = [];
 
-let depth = 0;
-const maxDeep = 2;
+const pwd = process.cwd();
 
-reportGenerator(process.cwd());
-
-function reportGenerator(dir) {
-  debug('depth:', depth)
-  if(depth >= maxDeep) return;
-
-  if(isGitRepo(dir)) {
-    getOneReport(dir);
-  } else {
-    const folderArr = fs.readdirSync(dir);
-    debug('folderArr:', folderArr)
-    folderArr.forEach(item => {
-      if(item.indexOf('.') === 0) return;
-      const currentPath = path.join(dir, item);
-      const isFile = fs.statSync(currentPath).isFile();
-      if(!isFile){
-        if(isGitRepo(currentPath)) {
-          getOneReport(currentPath);
+if(isGitRepo(pwd)) {
+  debug('generate log for: ', pwd);
+  getOneReport(pwd);
+} else {
+  debug('scaning: ', pwd)
+  const folderArr = getAbsolutePathesUnderAbsolutePath(pwd);
+  folderArr.forEach(path => {
+    if(isGitRepo(path)){
+      debug('generate log for: ', path);
+      getOneReport(path);
+    } else {
+      debug('scaning: ', path)
+      const nextLayerFolderArr = getAbsolutePathesUnderAbsolutePath(path);
+      nextLayerFolderArr.forEach(path => {
+        if(isGitRepo(path)){
+          debug('generate log for: ', path);
+          getOneReport(path);
         } else {
-          reportGenerator(currentPath);
+          debug('drop: ', path)
         }
-      }
-    })
-  }
-  depth++;
+      })
+    }
+  })
 }
 
+function getAbsolutePathesUnderAbsolutePath(currentPath) {
+  const dirArr = fs.readdirSync(currentPath);
+  const pathArr = [];
+  
+  for(let i = 0; i < dirArr.length; i++) {
+    if(dirArr[i].indexOf('.') !== 0) {
+      const absolutePath = path.join(currentPath, dirArr[i])
+      if(!fs.statSync(absolutePath).isFile()) {
+        pathArr.push(absolutePath)
+      }
+    }
+  }
+
+  return pathArr;
+}
 
 
 function isGitRepo(dir) {

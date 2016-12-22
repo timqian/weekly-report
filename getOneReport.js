@@ -43,7 +43,11 @@ module.exports = function oneReport(dirname) {
 
 
   if(logArr.join().trim() !== ''){
-    console.log(`\n\n~~~~~~~ Weekly Report for ${path.relative(process.cwd(), dirname)} ~~~~~~~\n\n ${logArr.join('\n')}`);
+    let folderRelativePath = path.relative(process.cwd(), dirname);
+    if( folderRelativePath.trim() === '') {
+      folderRelativePath = path.parse(__dirname).name;
+    }
+    console.log(`\n\n~~~~~~~ Weekly Report for ${folderRelativePath} ~~~~~~~\n\n ${logArr.join('\n')}`);
   }
 
 }
