@@ -2,7 +2,7 @@
 
 ![](http://g.recordit.co/svlsBqYHni.gif)
 
-## What is weekly-report
+## What does weekly-report do
 
 1. Recursively find Git repos under your working dir
 1. generate prettified commit report of last 7 days.
