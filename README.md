@@ -33,3 +33,4 @@ $ weekly-report # or wr for short
 
 - The script will stop inspect dirs inside a dir if the dir is a git project.
 - script will go 3 layer down
+- make sure your git repos are on the right branch
