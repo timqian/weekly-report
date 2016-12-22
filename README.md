@@ -4,7 +4,8 @@
 
 ## What is weekly-report
 
-Recursively inspect dirs inside your working dir and generate beautified commit report of last 7 days.
+1. Recursively find Git repos under your working dir
+1. generate prettified commit report of last 7 days.
 
 ## When will you need it
 
