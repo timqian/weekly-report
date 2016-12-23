@@ -13,7 +13,7 @@ module.exports = function oneReport(dirname) {
   const name = shell.exec('git config user.name', {silent:true}).stdout.trim();
   const sevenDaysAgo = new Date((new Date()).getTime() - (1000 * 60 * 60 * 24 * 7));
   const dateStr = dateformat(sevenDaysAgo, 'yyyy-mm-dd');
-  const gitLogCommentToRun = `cd ${dirname} && git log --after ${dateStr} --author ${name}`;
+  const gitLogCommentToRun = `cd ${dirname} && git log --after ${dateStr} --author '${name}'`;
   debug('gitLogCommentToRun: ', gitLogCommentToRun);
   const gitLogs = shell.exec(gitLogCommentToRun, {silent:true}).stdout.trim();
 
