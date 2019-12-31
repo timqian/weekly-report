@@ -9,28 +9,28 @@
 
 ## When will you need it
 
-- You are contributin to **multipul**/one project to your company/yourself
-- You need to present a weekly report
 - You want to see what you have done last week
+- You are contributin to **multipul**/one project to your company/yourself
+- You need to do weekly report
 
 ## Install
 
-```
-$ npm install -g weekly-report
+```bash
+npm install -g weekly-report
 ```
 
 ## Usage
 
-```
+```bash
 # Go to your working dir (should be project using git or contains git projects inside)
-$ cd dir/contains/projects/using/git
+cd dir/contains/projects/using/git
 
 # Generate weekly report
-$ weekly-report # or wr for short
+weekly-report # or wr for short
 ```
 
 ## Note
 
-- The script will stop inspect dirs inside a dir if the dir is a git project.
-- script will go 3 layer down
-- make sure your git repos are on the right branch
+- script will go 3 layers down
+- The script does not inspect dirs inside a dir if the dir is a git project.
+- make sure your git repos are on the right branch.
